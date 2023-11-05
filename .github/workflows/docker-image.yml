@@ -21,7 +21,7 @@ jobs:
       run: |
         run: |
           cd ./docker/php/
-          docker build -t myapp .
+          docker build -t myapp ./docker/php/
         working-directory: ./docker/php/
     - name: Run the Docker image
       run: |
