@@ -20,9 +20,7 @@ jobs:
     - name: Build the Docker image
       run: |
         run: |
-          cd ./docker/php/
-          docker build -t myapp ./docker/php/
-        working-directory: ./docker/php/
+          docker build -t myapp .
     - name: Run the Docker image
       run: |
         docker run --rm myapp vendor/bin/phpunit
