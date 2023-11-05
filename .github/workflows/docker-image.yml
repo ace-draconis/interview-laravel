@@ -19,7 +19,7 @@ jobs:
         cp .env.example .env
     - name: Build the Docker image
       run: |
-        docker build -t school:api -f ./docker/php/Dockerfile.
+        docker build -t school:api -f ./docker/php/Dockerfile
     - name: Run the Docker image
       run: |
         docker run school:api
