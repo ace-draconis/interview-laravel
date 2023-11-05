@@ -37,6 +37,7 @@ jobs:
         run: |
           cd src
           cp .env.example .env
+          docker exec -it toyeight.app bash
           composer install
           php artisan key:generate
           php artisan migrate --force
