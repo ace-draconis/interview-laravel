@@ -29,7 +29,7 @@ services:
     volumes:
       - "db:/var/lib/mysql"
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       interval: 3s
       retries: 10
@@ -37,6 +37,17 @@ services:
       - "${DB_PORT}:3306"
     networks:
       - backend
+  phpmyadmin:
+    container_name: "${COMPOSE_PROJECT_NAME}.pma"
+    image: phpmyadmin:latest
+    ports:
+      - 8081:80
+    environment:
+      PMA_ARBITARY: 1
+    depends_on:
+      - db
+    networks:
+      - "backend"
 networks:
   backend:
     name: "${COMPOSE_PROJECT_NAME}_backend"

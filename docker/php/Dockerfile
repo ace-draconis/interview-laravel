@@ -13,6 +13,9 @@ apt-get upgrade \
 && rm -rf /var/lib/apt/lists/* \
 && docker-php-ext-install -j$(nproc) \
     zip \
+    mysqli \
+    pdo \
+    pdo_mysql \
 && docker-php-source delete
 
 # install composer
