@@ -19,7 +19,7 @@ jobs:
         cp .env.example .env
     - name: Build the Docker image
       run: |
-        docker build .
+        docker build ./docker/php
     - name: Run the Docker image
       run: |
         docker up -d
