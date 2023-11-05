@@ -33,12 +33,19 @@ jobs:
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
+      - name: Setup laravel and migrate database
+        run: |
+          cd src
+          cp .env.example .env
+          composer install
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan db:seed
       - name: Run API test
         run: |
-          newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export
-          Report/report.html
+          newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export Report/report.html
       - name: Upload the report
         uses: actions/upload-artifact@v3
         with:
-          name: Reports
-          path: Reports
+          name: Report
+          path: Report
