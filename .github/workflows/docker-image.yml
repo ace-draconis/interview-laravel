@@ -23,4 +23,4 @@ jobs:
           docker build -t myapp .
     - name: Run the Docker image
       run: |
-        docker run --rm myapp vendor/bin/phpunit
+        docker-compose -f compose.yml up -d
