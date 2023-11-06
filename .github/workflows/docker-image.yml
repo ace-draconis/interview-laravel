@@ -64,6 +64,10 @@ jobs:
           php artisan migrate --force
           php artisan db:seed
         working-directory: src/
+      - name: Run Static Analysis
+        run: |
+          ./vendor/bin/psalm
+        working-directory: src/
       - name: Run API test
         run: |
           newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export Report/report.html
