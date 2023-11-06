@@ -20,6 +20,7 @@ jobs:
           MYSQL_USER: toyeight
           MYSQL_PASSWORD: 87sjbS2dBmzd
           MYSQL_DATABASE: school_db
+          MYSQL_HOST: db
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
