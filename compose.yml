@@ -11,6 +11,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    links:
+      - db
     volumes:
       - ./src:/var/www/laravel
     networks:
@@ -50,7 +52,6 @@ services:
       - "backend"
 networks:
   backend:
-    driver: bridge
     name: "${COMPOSE_PROJECT_NAME}_backend"
 volumes:
   db:
