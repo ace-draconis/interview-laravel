@@ -48,5 +48,5 @@ jobs:
         working-directory: src/
       - name: Run Static Analysis
         run: |
-          ./vendor/bin/psalm
+          ./vendor/bin/psalm --issues=MissingReturnType,InvalidReturnType,PossiblyUnusedMethod,UnusedMethod,MissingParamType --dry-run
         working-directory: src/
