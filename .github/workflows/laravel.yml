@@ -1,17 +1,18 @@
 name: Laravel
-"on":
+
+on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
+
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
+
     services:
       db:
-        image: "mysql:5.7"
+        image: mysql:5.7
         env:
           MYSQL_ROOT_USER: root
           MYSQL_ROOT_PASSWORD: ZkdiwZe38Gsd
@@ -20,10 +21,9 @@ jobs:
           MYSQL_DATABASE: school_db
           MYSQL_HOST: db
         ports:
-          - "33306:3306"
-        options: >-
-          --health-cmd="mysqladmin ping" --health-interval=10s
-          --health-timeout=5s --health-retries=3
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
@@ -33,12 +33,10 @@ jobs:
         run: cp .env.example .env
         working-directory: src/
       - name: Install Dependencies
-        run: >-
-          composer install -q --no-ansi --no-interaction --no-scripts
-          --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
         working-directory: src/
       - name: Generate key
-        run: "php artisan key:generate"
+        run: php artisan key:generate
         working-directory: src/
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
@@ -49,10 +47,9 @@ jobs:
           php artisan db:seed
         working-directory: src/
       - name: Psalm Security Scan
-        uses: >-
-          psalm/psalm-github-security-scan@f3e6fd9432bc3e44aec078572677ce9d2ef9c287
+        uses: psalm/psalm-github-security-scan@f3e6fd9432bc3e44aec078572677ce9d2ef9c287
         with:
-          entryPoint: ./src
+          relative_dir: src/
       - name: Upload Security Analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
