@@ -46,7 +46,6 @@ jobs:
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
-          docker ps –a
       - name: Setup laravel environment
         run: cp .env.example .env
         working-directory: src/
