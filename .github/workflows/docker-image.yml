@@ -42,19 +42,12 @@ jobs:
           cp .env.example .env
       - name: Build the Docker image
         run: |
-          run: |
-            docker build -t myapp .
+          docker build -t myapp .
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
-
-          # Sleep for a few seconds to ensure containers are up and running
           sleep 5
-
-          # Get container IDs
           container_ids=$(docker ps -q)
-
-          # Loop through container IDs and print host and port information
           for container_id in $container_ids; do
             container_host=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container_id)
             container_port=$(docker inspect --format='{{range $port, $conf := .NetworkSettings.Ports}}{{if eq $port "80/tcp"}}{{$conf.[0].HostPort}}{{end}}{{end}}' $container_id)
