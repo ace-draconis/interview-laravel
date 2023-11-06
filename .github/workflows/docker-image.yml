@@ -41,6 +41,7 @@ jobs:
           DATABASE_ENDPOINT: 127.0.0.1
         run: |
           cd src
+          cp .env.example .env
           docker exec -i toyeight.app bash
           composer install
           php artisan key:generate
