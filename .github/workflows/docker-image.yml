@@ -34,10 +34,14 @@ jobs:
         run: |
           docker-compose -f compose.yml up -d
       - name: Setup laravel and migrate database
+        env:
+          DATABASE_NAME: school_db
+          DATABASE_USERNAME: root
+          DATABASE_PASSWORD: ZkdiwZe38Gsd
+          DATABASE_ENDPOINT: 127.0.0.1
         run: |
           cd src
-          docker exec -it toyeight.app bash
-          cp .env.example .env
+          docker exec -i toyeight.app bash
           composer install
           php artisan key:generate
           php artisan migrate --force

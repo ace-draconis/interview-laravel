@@ -43,7 +43,6 @@ jobs:
         working-directory: src/
       - name: Migrate DB
         run: |
-          docker exec -i toyeight.app php artisan migrate
           php artisan migrate --force
           php artisan db:seed
         working-directory: src/
