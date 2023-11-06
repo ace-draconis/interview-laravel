@@ -38,7 +38,7 @@ jobs:
           DATABASE_NAME: school_db
           DATABASE_USERNAME: root
           DATABASE_PASSWORD: ZkdiwZe38Gsd
-          DATABASE_ENDPOINT: 127.0.0.1
+          DATABASE_ENDPOINT: db
         run: |
           cd src
           cp .env.example .env
