@@ -33,20 +33,23 @@ jobs:
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
-      - name: Setup laravel and migrate database
-        env:
-          DATABASE_NAME: school_db
-          DATABASE_USERNAME: root
-          DATABASE_PASSWORD: ZkdiwZe38Gsd
-          DATABASE_ENDPOINT: db
+      - name: Setup laravel environment
+        run: cp .env.example .env
+        working-directory: src/
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        working-directory: src/
+      - name: Generate key
+        run: php artisan key:generate
+        working-directory: src/
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+        working-directory: src/
+      - name: Migrate DB
         run: |
-          cd src
-          cp .env.example .env
-          docker exec -i toyeight.app bash
-          composer install
-          php artisan key:generate
           php artisan migrate --force
           php artisan db:seed
+        working-directory: src/
       - name: Run API test
         run: |
           newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export Report/report.html
