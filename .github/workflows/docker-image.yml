@@ -47,6 +47,19 @@ jobs:
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
+
+          # Sleep for a few seconds to ensure containers are up and running
+          sleep 5
+
+          # Get container IDs
+          container_ids=$(docker ps -q)
+
+          # Loop through container IDs and print host and port information
+          for container_id in $container_ids; do
+            container_host=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container_id)
+            container_port=$(docker inspect --format='{{range $port, $conf := .NetworkSettings.Ports}}{{if eq $port "80/tcp"}}{{$conf.[0].HostPort}}{{end}}{{end}}' $container_id)
+            echo "Container ID: $container_id, Host: $container_host, Port: $container_port"
+          done
       - name: Setup laravel environment
         run: cp .env.example .env
         working-directory: src/
@@ -72,3 +85,9 @@ jobs:
         with:
           name: Report
           path: Report
+      - name: Psalm Security Scan
+        uses: psalm/psalm-github-security-scan@f3e6fd9432bc3e44aec078572677ce9d2ef9c287
+      - name: Upload Security Analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
