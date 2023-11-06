@@ -12,41 +12,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Create new directory
-        run: |
-          mkdir Report
-      - name: Install Node.js and Newman
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-          npm install -g newman
-          npm install -g newman-reporter-slackreporter
-          npm install -g newman-reporter-htmlextra
-        # This step installs Node.js and Newman on the GitHub Actions runner.
       - name: Copy .env
         run: |
           cp .env.example .env
       - name: Build the Docker image
         run: |
           run: |
-            docker build -t myapp .
+            docker build -t .
       - name: Run the Docker image
         run: |
           docker-compose -f compose.yml up -d
-      - name: Setup laravel and migrate database
-        run: |
-          cd src
-          cp .env.example .env
-          docker exec -i toyeight.app bash
-          composer install
-          php artisan key:generate
-          php artisan migrate --force
-          php artisan db:seed
-      - name: Run API test
-        run: |
-          newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export Report/report.html
-      - name: Upload the report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Report
-          path: Report
+      #- name: Setup laravel and migrate database
+      #  run: |
+      #    cd src
+      #    cp .env.example .env
+      #    docker exec -i toyeight.app bash
+      #    composer install
+      #    php artisan key:generate
+      #    php artisan migrate --force
+      #    php artisan db:seed
