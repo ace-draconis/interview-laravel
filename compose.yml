@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: ./
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: Dockerfile
       target: local
     image: laravel/php-apache
     container_name: ${COMPOSE_PROJECT_NAME}.app
