@@ -59,3 +59,22 @@ jobs:
           -H "Accept:application/json" \
           -H "Content-Type:application/json" \
           -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
+            - name: Create new directory
+        run: |
+          mkdir Report
+      - name: Install Node.js and Newman
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          npm install -g newman
+          npm install -g newman-reporter-slackreporter
+          npm install -g newman-reporter-htmlextra
+        # This step installs Node.js and Newman on the GitHub Actions runner.
+      - name: Run API test
+        run: |
+          newman run "api/test/School_API.postman_collection.json" -e "api/test/School.postman_environment.json" -r cli,htmlextra --reporter-htmlextra-export Report/report.html
+      - name: Upload the report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Report
+          path: Report
