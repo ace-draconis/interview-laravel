@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\Course;
+namespace App\Http\Requests\Student;
 
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
