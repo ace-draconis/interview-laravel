@@ -51,7 +51,7 @@ jobs:
         working-directory: src/
       - name: Test availability
         run: |
-          curl -X POST http://0.0.0.0:8080/api/register \
+          curl -X POST http://app:8080/api/register \
           -H "Accept: application/json" \
           -H "Content-Type: application/json" \
           -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
