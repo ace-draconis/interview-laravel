@@ -44,6 +44,7 @@ jobs:
         run: |
           php artisan migrate --force
           php artisan db:seed
+          php artisan config:cache
         working-directory: src/
       - name: Run Static Analysis
         run: |
@@ -54,7 +55,7 @@ jobs:
           netstat -a
       - name: Test availability
         run: |
-          curl -X POST http://host.docker.internal:8080/api/register \
+          curl -X POST http://localhost:8084/api/register \
           -H "Accept:application/json" \
           -H "Content-Type:application/json" \
           -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
