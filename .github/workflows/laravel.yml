@@ -59,7 +59,7 @@ jobs:
           -H "Accept:application/json" \
           -H "Content-Type:application/json" \
           -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
-            - name: Create new directory
+      - name: Create new directory
         run: |
           mkdir Report
       - name: Install Node.js and Newman
