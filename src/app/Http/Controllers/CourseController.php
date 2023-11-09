@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\DataTransferObjects\Course\FilterData;
+use App\Http\Requests\Course\StoreCourseRequest;
+use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Http\Actions\Course\GetAllAction;
 use App\Exceptions\GeneralHttpException;
 use App\Support\ApiResponse;

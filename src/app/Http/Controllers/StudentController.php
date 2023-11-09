@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Http\Actions\Student\GetAllAction;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
 use Illuminate\Http\Request;
 use App\Http\DataTransferObjects\Student\FilterData;
 use App\Exceptions\GeneralHttpException;
