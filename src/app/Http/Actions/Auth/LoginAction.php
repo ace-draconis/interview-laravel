@@ -26,19 +26,4 @@ class LoginAction
         throw new GeneralHttpException(__('message.invalid_login'));
         
     }
-
-    private function createUser(CreateOrUpdateData $createOrUpdateData): User
-    {
-        return $this->user->create($createOrUpdateData->toArray());
-    }
-
-
-
-
-
-
-
-
-
-
 }
