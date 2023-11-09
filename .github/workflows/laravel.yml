@@ -49,6 +49,9 @@ jobs:
         run: |
           ./vendor/bin/psalm
         working-directory: src/
+      - name: Check host and port
+        run: |
+          netstat -a
       - name: Test availability
         run: |
           curl -X POST http://host.docker.internal:8080/api/register \
