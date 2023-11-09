@@ -50,15 +50,6 @@ jobs:
         run: |
           ./vendor/bin/psalm
         working-directory: src/
-      - name: Check host and port
-        run: |
-          netstat -a
-      - name: Test availability
-        run: |
-          curl -X POST http://localhost:8084/api/register \
-          -H "Accept:application/json" \
-          -H "Content-Type:application/json" \
-          -d '{"name": "John", "email": "john.doe@toptal.com", "password": "toptal123", "password_confirmation": "toptal123"}'
       - name: Create new directory
         run: |
           mkdir Report
