@@ -4,21 +4,128 @@ info:
   description: An API for managing students and courses.
   version: 1.0.0
 servers:
-  - url: http://{{url}}
+  - url: "http://{{url}}"
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
 tags:
-  - name: students
   - name: users
   - name: courses
+  - name: students
 paths:
-  /students:
+  /register:
+    post:
+      tags:
+        - users
+      summary: register
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: Ace Draconis
+                email:
+                  type: string
+                  example: ace.kuro21@gmail.com
+                password:
+                  type: string
+                  example: my123456
+                password_confirmation:
+                  type: string
+                  example: my123456
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /login:
+    post:
+      tags:
+        - users
+      summary: login
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                email:
+                  type: string
+                  example: ace.kuro21@gmail.com
+                password:
+                  type: string
+                  example: my123456
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /user:
     get:
       tags:
-        - students
-      summary: List all students
+        - users
+      summary: user
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: "Bearer {{token}}"
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /courses:
+    get:
+      tags:
+        - courses
+      summary: List all courses
       description: |-
         List of all students
 
         The email parameter needs to be an exact match.
+      security:
+        - noauthAuth: []
       parameters:
         - name: Accept
           in: header
@@ -34,9 +141,19 @@ paths:
           in: header
           schema:
             type: string
-          example: Bearer {{token}}
+          example: "Bearer {{token}}"
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: Web
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
       responses:
-        '200':
+        "200":
           description: OK
           headers:
             Content-Type:
@@ -68,89 +185,17 @@ paths:
                       name: <string>
                     - id: <integer>
                       name: <string>
-  /register:
-    post:
-      tags:
-        - users
-      summary: register
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                name:
-                  type: string
-                  example: Ace Draconis
-                email:
-                  type: string
-                  example: ace.kuro21@gmail.com
-                password:
-                  type: string
-                  example: my123456
-                password_confirmation:
-                  type: string
-                  example: my123456
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /login:
-    post:
-      tags:
-        - users
-      summary: login
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              properties:
-                email:
-                  type: string
-                  example: ace.kuro21@gmail.com
-                password:
-                  type: string
-                  example: my123456
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /user:
+  /students:
     get:
       tags:
-        - users
-      summary: user
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer {{token}}
-        - name: Accept
-          in: header
-          schema:
-            type: string
-          example: application/json
-        - name: Content-Type
-          in: header
-          schema:
-            type: string
-          example: application/json
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /courses:
-    get:
-      tags:
-        - courses
-      summary: List all courses
+        - students
+      summary: List all students
       description: |-
         List of all students
 
         The email parameter needs to be an exact match.
+      security:
+        - noauthAuth: []
       parameters:
         - name: Accept
           in: header
@@ -166,19 +211,9 @@ paths:
           in: header
           schema:
             type: string
-          example: Bearer {{token}}
-        - name: name
-          in: query
-          schema:
-            type: string
-          example: Web
-        - name: page
-          in: query
-          schema:
-            type: integer
-          example: '1'
+          example: "Bearer {{token}}"
       responses:
-        '200':
+        "200":
           description: OK
           headers:
             Content-Type:

@@ -8,11 +8,154 @@
 	},
 	"item": [
 		{
-			"name": "students",
+			"name": "users",
 			"item": [
 				{
-					"name": "List all students",
+					"name": "register",
 					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ace Draconis",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ace.kuro21@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "my123456",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "my123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "ace.kuro21@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "my123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "courses",
+			"item": [
+				{
+					"name": "List all courses",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -32,23 +175,21 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/students",
+							"raw": "{{url}}/courses?name=Web&page=1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"students"
+								"courses"
 							],
 							"query": [
 								{
-									"key": "email",
-									"value": "weldon.moen@example.net",
-									"disabled": true
+									"key": "name",
+									"value": "Web"
 								},
 								{
-									"key": "name",
-									"value": "Stamm",
-									"disabled": true
+									"key": "page",
+									"value": "1"
 								}
 							]
 						},
@@ -98,123 +239,14 @@
 			]
 		},
 		{
-			"name": "users",
+			"name": "students",
 			"item": [
 				{
-					"name": "register",
+					"name": "List all students",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Ace Draconis",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "ace.kuro21@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "my123456",
-									"type": "text"
-								},
-								{
-									"key": "password_confirmation",
-									"value": "my123456",
-									"type": "text"
-								}
-							]
+						"auth": {
+							"type": "noauth"
 						},
-						"url": {
-							"raw": "{{url}}/register",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "ace.kuro21@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "my123456",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "user",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/user",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "courses",
-			"item": [
-				{
-					"name": "List all courses",
-					"request": {
 						"method": "GET",
 						"header": [
 							{
@@ -234,21 +266,23 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/courses?name=Web&page=1",
+							"raw": "{{url}}/students",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"courses"
+								"students"
 							],
 							"query": [
 								{
-									"key": "name",
-									"value": "Web"
+									"key": "email",
+									"value": "weldon.moen@example.net",
+									"disabled": true
 								},
 								{
-									"key": "page",
-									"value": "1"
+									"key": "name",
+									"value": "Stamm",
+									"disabled": true
 								}
 							]
 						},
